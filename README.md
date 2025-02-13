@@ -26,6 +26,9 @@ Vishnu EduConnect (VEC)
 
 
 
+
+
+
 🛠 Tech I Used: 
          This project served as a stepping stone to explore the fundamentals of frontend development. The focus was on understanding the basics of building static pages, styling, and creating a user-friendly design.
 

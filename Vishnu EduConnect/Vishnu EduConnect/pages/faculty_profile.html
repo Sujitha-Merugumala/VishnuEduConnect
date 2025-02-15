@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teacher Profile</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8fbff;
+        background-image: url("../images/image2.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        color: #333;
+      }
+
+      .navbar {
+        background-color: #0f4c81;
+      }
+      .navbar-brand {
+        color: white !important;
+        font-weight: bold;
+      }
+      .card-header {
+        background-color: #0f4c81;
+        color: white;
+        font-weight: bold;
+      }
+      .btn-primary {
+        background-color: #0f4c81;
+        border-color: #71a7d7;
+      }
+      .btn-primary:hover {
+        background-color: #0f4c81;
+        border-color: #508db5;
+      }
+      .btn-secondary {
+        background-color: #0f4c81;
+        border-color: #5b9bd5;
+        color: #fff;
+      }
+      .btn-secondary:hover {
+        background-color: #4a87c2;
+        border-color: #4a87c2;
+      }
+      .btn-danger {
+        background-color: #add8e6;
+        border-color: #add8e6;
+      }
+      .btn-danger:hover {
+        background-color: #87ceeb;
+        border-color: #87ceeb;
+      }
+      .modal-form {
+        background-color: #e3f2fd;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Vishnu EduConnect</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="faculty_dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Home.html">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container my-5">
+      <div class="row">
+        <!-- Personal Information Section -->
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body text-center">
+              <img
+                src="default-profile.webp"
+                alt="Profile Image"
+                class="img-thumbnail mb-3"
+                id="profileImage"
+                style="width: 150px; height: 150px"
+              />
+              <h3 id="profileName">John Doe</h3>
+              <div class="profile-info">
+                <div class="info-block">
+                  <p>
+                    <strong>Department:</strong>
+                    <span id="profileDepartment">Mathematics</span>
+                  </p>
+                  <p>
+                    <strong>Email:</strong>
+                    <span id="profileEmail">john.doe@example.com</span>
+                  </p>
+                </div>
+                <button class="btn btn-primary" id="toggleUpdateProfile">
+                  Update Profile
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Professional Details Section -->
+        <div class="col-md-8">
+          <!-- Update Profile Form -->
+          <div id="updateProfileForm" class="modal-form">
+            <h4 class="text-primary text-center">Update Profile</h4>
+            <form id="profileForm">
+              <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder="Enter your name"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="department" class="form-label">Department</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="department"
+                  placeholder="Enter your department"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="profilePic" class="form-label"
+                  >Profile Picture</label
+                >
+                <input
+                  type="file"
+                  class="form-control"
+                  id="profilePic"
+                  accept="image/*"
+                />
+              </div>
+              <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="cancelUpdate"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Research Papers Section -->
+          <div class="card mt-4">
+            <div class="card-header">
+              Research Papers
+              <button
+                class="btn btn-secondary btn-sm float-end"
+                id="toggleResearchForm"
+              >
+                Add
+              </button>
+            </div>
+            <div class="card-body" id="researchList"></div>
+            <div id="addResearchForm" class="modal-form">
+              <h5>Add Research Paper</h5>
+              <form id="researchForm">
+                <div class="mb-3">
+                  <label for="researchTitle" class="form-label">Title</label>
+                  <input
+                    type="text"
+                    id="researchTitle"
+                    class="form-control"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="researchJournal" class="form-label"
+                    >Journal</label
+                  >
+                  <input
+                    type="text"
+                    id="researchJournal"
+                    class="form-control"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="researchDate" class="form-label">Date</label>
+                  <input
+                    type="date"
+                    id="researchDate"
+                    class="form-control"
+                    required
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Projects Mentored Section -->
+          <div class="card mt-4">
+            <div class="card-header">
+              Projects Mentored
+              <button
+                class="btn btn-secondary btn-sm float-end"
+                id="toggleProjectsForm"
+              >
+                Add
+              </button>
+            </div>
+            <div class="card-body" id="projectsList"></div>
+            <div id="addProjectsForm" class="modal-form">
+              <h5>Add Project</h5>
+              <form id="projectsForm">
+                <div class="mb-3">
+                  <label for="projectTitle" class="form-label">Title</label>
+                  <input
+                    type="text"
+                    id="projectTitle"
+                    class="form-control"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="projectYear" class="form-label">Year</label>
+                  <input
+                    type="number"
+                    id="projectYear"
+                    class="form-control"
+                    required
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Career History Section -->
+          <div class="card mt-4">
+            <div class="card-header">
+              Career History
+              <button
+                class="btn btn-secondary btn-sm float-end"
+                id="toggleCareerForm"
+              >
+                Add
+              </button>
+            </div>
+            <div class="card-body" id="careerList"></div>
+            <div id="addCareerForm" class="modal-form">
+              <h5>Add Career History</h5>
+              <form id="careerForm">
+                <div class="mb-3">
+                  <label for="careerPosition" class="form-label"
+                    >Position</label
+                  >
+                  <input
+                    type="text"
+                    id="careerPosition"
+                    class="form-control"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="careerStart" class="form-label">Start Year</label>
+                  <input
+                    type="number"
+                    id="careerStart"
+                    class="form-control"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="careerEnd" class="form-label">End Year</label>
+                  <input type="number" id="careerEnd" class="form-control" />
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const toggleForm = (formId) => {
+        const form = document.getElementById(formId);
+        form.style.display = form.style.display === "block" ? "none" : "block";
+      };
+
+      // Profile Update
+      document
+        .getElementById("toggleUpdateProfile")
+        .addEventListener("click", () => toggleForm("updateProfileForm"));
+      document
+        .getElementById("cancelUpdate")
+        .addEventListener("click", () => toggleForm("updateProfileForm"));
+
+      document
+        .getElementById("profileForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const name = document.getElementById("name").value;
+          const department = document.getElementById("department").value;
+          const email = document.getElementById("email").value;
+          const profilePic = document.getElementById("profilePic").files[0];
+
+          document.getElementById("profileName").textContent = name;
+          document.getElementById("profileDepartment").textContent = department;
+          document.getElementById("profileEmail").textContent = email;
+
+          if (profilePic) {
+            const reader = new FileReader();
+            reader.onload = (e) =>
+              (document.getElementById("profileImage").src = e.target.result);
+            reader.readAsDataURL(profilePic);
+          }
+
+          toggleForm("updateProfileForm");
+        });
+
+      // Handle Research Papers
+      document
+        .getElementById("toggleResearchForm")
+        .addEventListener("click", () => toggleForm("addResearchForm"));
+      document
+        .getElementById("researchForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const title = document.getElementById("researchTitle").value;
+          const journal = document.getElementById("researchJournal").value;
+          const date = document.getElementById("researchDate").value;
+          const list = document.getElementById("researchList");
+
+          const item = document.createElement("div");
+          item.classList.add(
+            "d-flex",
+            "justify-content-between",
+            "align-items-center",
+            "mb-2"
+          );
+          item.innerHTML = `<span><strong>${title}</strong> (${date}) - ${journal}</span><button class='btn btn-danger btn-sm'>Delete</button>`;
+
+          item
+            .querySelector("button")
+            .addEventListener("click", () => item.remove());
+          list.appendChild(item);
+
+          toggleForm("addResearchForm");
+        });
+
+      // Handle Projects
+      document
+        .getElementById("toggleProjectsForm")
+        .addEventListener("click", () => toggleForm("addProjectsForm"));
+      document
+        .getElementById("projectsForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const title = document.getElementById("projectTitle").value;
+          const year = document.getElementById("projectYear").value;
+          const list = document.getElementById("projectsList");
+
+          const item = document.createElement("div");
+          item.classList.add(
+            "d-flex",
+            "justify-content-between",
+            "align-items-center",
+            "mb-2"
+          );
+          item.innerHTML = `<span><strong>${title}</strong> (${year})</span><button class='btn btn-danger btn-sm'>Delete</button>`;
+
+          item
+            .querySelector("button")
+            .addEventListener("click", () => item.remove());
+          list.appendChild(item);
+
+          toggleForm("addProjectsForm");
+        });
+
+      // Handle Career History
+      document
+        .getElementById("toggleCareerForm")
+        .addEventListener("click", () => toggleForm("addCareerForm"));
+      document
+        .getElementById("careerForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const position = document.getElementById("careerPosition").value;
+          const start = document.getElementById("careerStart").value;
+          const end = document.getElementById("careerEnd").value || "Present";
+          const list = document.getElementById("careerList");
+
+          const item = document.createElement("div");
+          item.classList.add(
+            "d-flex",
+            "justify-content-between",
+            "align-items-center",
+            "mb-2"
+          );
+          item.innerHTML = `<span>${position} (${start} - ${end})</span><button class='btn btn-danger btn-sm'>Delete</button>`;
+
+          item
+            .querySelector("button")
+            .addEventListener("click", () => item.remove());
+          list.appendChild(item);
+
+          toggleForm("addCareerForm");
+        });
+    </script>
+  </body>
+</html>

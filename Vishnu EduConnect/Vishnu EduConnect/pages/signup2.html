@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup - Vishnu Edu Connect</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-image: url("../images/image5.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin: 0;
+        padding: 0;
+        color: #34495e;
+      }
+
+      .custom-navbar {
+        background-color: #2c3e50;
+      }
+
+      .custom-navbar .navbar-brand {
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: #ecf0f1 !important;
+      }
+
+      .custom-navbar .nav-link {
+        color: #ecf0f1 !important;
+      }
+
+      .custom-navbar .nav-link:hover {
+        color: #3498db !important;
+      }
+
+      .form-container {
+        max-width: 700px;
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      label {
+        font-weight: 600;
+        color: #34495e;
+      }
+
+      .form-control {
+        border-radius: 6px;
+      }
+
+      .btn-primary {
+        background-color: #3498db;
+        border-color: #3498db;
+        border-radius: 6px;
+        padding: 10px 20px;
+        font-size: 1rem;
+      }
+
+      .btn-primary:hover {
+        background-color: #2980b9;
+      }
+
+      .form-check-label {
+        font-weight: 500;
+        color: #34495e;
+      }
+
+      .role-section {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+      }
+
+      .optional-section {
+        margin-top: 20px;
+        padding: 15px;
+        background: #f7f9fc;
+        border: 1px solid #dfe6e9;
+        border-radius: 8px;
+      }
+
+      .optional-section h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #2c3e50;
+      }
+
+      .optional-section p {
+        margin-bottom: 10px;
+        color: #7f8c8d;
+      }
+
+      .instruction {
+        color: #7f8c8d;
+        font-size: 0.875rem;
+        margin-top: 5px;
+      }
+
+      .error {
+        color: red;
+        font-size: 0.875rem;
+        margin-top: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg custom-navbar">
+      <div class="container">
+        <a class="navbar-brand" href="#">Vishnu EduConnect</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Signup Form -->
+    <div class="container form-container">
+      <h2>Create an Account</h2>
+      <form id="signupForm">
+        <!-- Name -->
+        <div class="mb-3">
+          <label for="name" class="form-label">Full Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            placeholder="Enter your full name"
+            required
+          />
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email Address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+            required
+          />
+          <div id="emailError" class="error" style="display: none"></div>
+        </div>
+
+        <!-- Department -->
+        <div class="mb-3">
+          <label for="department" class="form-label">Department</label>
+          <input
+            type="text"
+            class="form-control"
+            id="department"
+            name="department"
+            placeholder="Your department name"
+            required
+          />
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            placeholder="Create a password"
+            required
+          />
+          <div id="passwordError" class="error" style="display: none"></div>
+        </div>
+
+        <!-- Role Selection -->
+        <div class="role-section">
+          <div>
+            <input
+              type="radio"
+              id="student"
+              name="role"
+              value="student"
+              required
+            />
+            <label for="student" class="form-check-label">Student</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="faculty"
+              name="role"
+              value="faculty"
+              required
+            />
+            <label for="faculty" class="form-check-label">Faculty</label>
+          </div>
+        </div>
+
+        <!-- Profile Picture Section (Visible for both Student and Faculty) -->
+        <div id="profilePicture" class="optional-section" style="display: none">
+          <h5>Profile Picture</h5>
+          <input
+            type="file"
+            class="form-control"
+            id="profileImage"
+            name="profileImage"
+          />
+        </div>
+
+        <!-- Student Fields -->
+        <div id="studentFields" class="optional-section" style="display: none">
+          <h5>Student Information</h5>
+          <div class="mb-3">
+            <label for="graduationYear" class="form-label"
+              >Graduation Year</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="graduationYear"
+              name="graduationYear"
+            />
+          </div>
+        </div>
+
+        <!-- Faculty Fields -->
+        <div id="facultyFields" class="optional-section" style="display: none">
+          <h5>Faculty Information</h5>
+          <div class="mb-3">
+            <label for="expertise" class="form-label">Area of Expertise</label>
+            <select
+              class="form-select"
+              id="expertise"
+              name="expertise"
+              multiple
+            >
+              <option value="Artificial Intelligence">
+                Artificial Intelligence
+              </option>
+              <option value="Machine Learning">Machine Learning</option>
+              <option value="Cloud Computing">Cloud Computing</option>
+              <option value="Data Science">Data Science</option>
+              <option value="Data Analytics">Data Analytics</option>
+              <option value="Linear Algebra">Linear Algebra</option>
+              <option value="Cyber Security">Cyber Security</option>
+              <option value="Embedded Systems">Embedded Systems</option>
+              <option value="Additive Manufacturing">
+                Additive Manufacturing
+              </option>
+              <option value="Health Psychology">Health Psychology</option>
+              <option value="Digital Content Creation">
+                Digital Content Creation
+              </option>
+              <option value="Public Speaking">Public Speaking</option>
+              <option value="Presentation Skills">Presentation Skills</option>
+            </select>
+            <p class="instruction">
+              Hold down the Ctrl (Windows) or Command (Mac) key to select
+              multiple areas of expertise.
+            </p>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+      </form>
+    </div>
+
+    <script>
+      const roleRadios = document.querySelectorAll('input[name="role"]');
+      const studentFields = document.getElementById("studentFields");
+      const facultyFields = document.getElementById("facultyFields");
+      const profilePicture = document.getElementById("profilePicture");
+      const signupForm = document.getElementById("signupForm");
+
+      // Show/hide fields based on selected role
+      roleRadios.forEach((radio) => {
+        radio.addEventListener("change", () => {
+          if (radio.value === "student") {
+            studentFields.style.display = "block";
+            facultyFields.style.display = "none";
+            profilePicture.style.display = "block"; // Show profile picture field for students
+          } else if (radio.value === "faculty") {
+            facultyFields.style.display = "block";
+            studentFields.style.display = "none";
+            profilePicture.style.display = "block"; // Show profile picture field for faculty
+          }
+        });
+      });
+
+      signupForm.addEventListener("submit", (event) => {
+        event.preventDefault(); // Prevent the form's default submission behavior
+
+        // Collect form data
+        const formData = new FormData(signupForm);
+        const data = Object.fromEntries(formData);
+
+        // Validate form data
+        let valid = true;
+
+        // Example validation
+        if (!data.email || !data.email.endsWith("@svecw.edu.in")) {
+          alert("Please enter a valid SVECW email address.");
+          valid = false;
+        }
+
+        if (data.password && data.password.length < 8) {
+          alert("Password must be at least 8 characters long.");
+          valid = false;
+        }
+
+        // If the form is valid
+        if (valid) {
+          alert("Account created successfully!");
+
+          // Redirect to the appropriate page
+          if (data.role === "student") {
+            window.location.href = "student_profile.html"; // Replace with your actual page
+          } else if (data.role === "faculty") {
+            window.location.href = "faculty_profile.html"; // Replace with your actual page
+          } else {
+            alert("Please select a role.");
+          }
+        }
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

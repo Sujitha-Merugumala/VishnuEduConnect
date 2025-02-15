@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Profile</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-image: url("../images/image8.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        overflow: auto;
+      }
+      html {
+        height: 100%;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      /* Navigation Bar */
+      .navbar {
+        background-color: #0f4c81;
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-link {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+      }
+
+      .nav-link:hover {
+        color: #6a89cc;
+      }
+      .personal-info {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 20px;
+        padding-bottom: 20px;
+        position: relative;
+      }
+      .info {
+        flex: 1;
+      }
+      .info h1 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #2c3e50;
+      }
+      .info p {
+        margin: 5px 0;
+        color: #555;
+      }
+      .profile-pic {
+        flex: 0 0 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .profile-pic img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #ddd;
+        transition: transform 0.3s ease;
+      }
+      .profile-pic img:hover {
+        transform: scale(1.05);
+      }
+      /* Edit Button */
+      .edit-btn {
+        display: inline-block;
+        background: #0f4c81;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        margin-top: 10px;
+      }
+      .edit-btn:hover {
+        background: #6a89cc;
+      }
+      .edit-btn-container {
+        margin-top: 15px;
+      }
+      /* Professional Information Section */
+      .professional-info {
+        margin-top: 40px;
+        position: relative;
+      }
+      .section {
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .section h2 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #0f4c81;
+        text-transform: uppercase;
+        text-align: left;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #4a69bd;
+      }
+      .card {
+        background: #f0f4f8;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin: 10px 0; /* Space between cards */
+        position: relative;
+      }
+      .card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #0f4c81;
+      }
+      .card p {
+        color: #555;
+        font-size: 0.9rem;
+      }
+      .edit-card-btn,
+      .delete-card-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #0f4c81;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+      .edit-card-btn:hover,
+      .delete-card-btn:hover {
+        background: #6a89cc;
+      }
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: #0f4c81;
+        justify-content: center;
+        align-items: center;
+      }
+      .modal-content {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        width: 400px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+        transform: scale(0.9);
+        opacity: 0;
+        animation: fadeIn 0.3s forwards;
+      }
+      @keyframes fadeIn {
+        from {
+          transform: scale(0.9);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #4a69bd;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+      }
+      .modal-header h2 {
+        margin: 0;
+        color: #4a69bd;
+      }
+      .close {
+        cursor: pointer;
+        color: #4a69bd;
+        font-size: 1.5rem;
+      }
+      /* Input Fields */
+      input[type="text"],
+      input[type="email"],
+      input[type="file"],
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: border 0.3s ease;
+      }
+      input[type="text"]:focus,
+      input[type="email"]:focus,
+      textarea:focus {
+        border: 1px solid #4a69bd;
+        outline: none;
+      }
+      /* Save Button */
+      .save-btn {
+        background: #4a69bd;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        margin-top: 15px;
+      }
+      .save-btn:hover {
+        background: #6a89cc;
+      }
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .navbar h1 {
+          font-size: 1.4rem;
+        }
+        .personal-info {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+        .profile-pic {
+          margin-bottom: 20px;
+        }
+        .professional-info .section {
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+      <h1 style="flex: 1">Vishnu EduConnect</h1>
+      <div class="nav-links">
+        <a href="student_dashboard.html" class="nav-link">Dashboard</a>
+        <a href="Home.html" class="nav-link">Logout</a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+      <!-- Personal Information Section -->
+      <div class="personal-info">
+        <div class="info">
+          <h1>John Doe</h1>
+          <p><strong>Branch:</strong> Computer Science</p>
+          <p><strong>Email:</strong> john.doe@example.com</p>
+          <p><strong>Year of Study:</strong> 3rd Year</p>
+          <div class="edit-btn-container">
+            <button class="edit-btn" onclick="openModal('personal-info-modal')">
+              Edit Personal Info
+            </button>
+          </div>
+        </div>
+        <div class="profile-pic">
+          <img src="default-profile.webp" alt="Profile Picture" />
+        </div>
+      </div>
+
+      <!-- Professional Information Section -->
+      <div class="professional-info">
+        <div class="section">
+          <h2>Achievements</h2>
+          <div id="achievement-list">
+            <div class="card">
+              <h3>Best Student Award</h3>
+              <p>Won in 2023 for academic excellence.</p>
+              <button
+                class="edit-card-btn"
+                onclick="openEditModal('edit-achievement-modal', 'Best Student Award', 'Won in 2023 for academic excellence.', 'achievement')"
+              >
+                Edit
+              </button>
+              <button
+                class="delete-card-btn"
+                onclick="deleteItem(this, 'achievement')"
+              >
+                Delete
+              </button>
+            </div>
+            <div class="card">
+              <h3>Science Olympiad 2022</h3>
+              <p>Secured 2nd position in the state-level competition.</p>
+              <button
+                class="edit-card-btn"
+                onclick="openEditModal('edit-achievement-modal', 'Science Olympiad 2022', 'Secured 2nd position in the state-level competition.', 'achievement')"
+              >
+                Edit
+              </button>
+              <button
+                class="delete-card-btn"
+                onclick="deleteItem(this, 'achievement')"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+          <button
+            class="edit-btn"
+            onclick="openAddModal('add-achievement-modal', 'achievement')"
+          >
+            Add Achievement
+          </button>
+        </div>
+
+        <div class="section">
+          <h2>Certifications</h2>
+          <div id="certification-list">
+            <div class="card">
+              <h3>Web Development Certificate</h3>
+              <p>Completed in 2023 from ABC Institute.</p>
+              <button
+                class="edit-card-btn"
+                onclick="openEditModal('edit-certification-modal', 'Web Development Certificate', 'Completed in 2023 from ABC Institute.', 'certification')"
+              >
+                Edit
+              </button>
+              <button
+                class="delete-card-btn"
+                onclick="deleteItem(this, 'certification')"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+          <button
+            class="edit-btn"
+            onclick="openAddModal('add-certification-modal', 'certification')"
+          >
+            Add Certification
+          </button>
+        </div>
+
+        <div class="section">
+          <h2>Projects</h2>
+          <div id="project-list">
+            <div class="card">
+              <h3>Smart Home Automation</h3>
+              <p>A project focused on IoT implementation.</p>
+              <button
+                class="edit-card-btn"
+                onclick="openEditModal('edit-project-modal', 'Smart Home Automation', 'A project focused on IoT implementation.', 'project')"
+              >
+                Edit
+              </button>
+              <button
+                class="delete-card-btn"
+                onclick="deleteItem(this, 'project')"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+          <button
+            class="edit-btn"
+            onclick="openAddModal('add-project-modal', 'project')"
+          >
+            Add Project
+          </button>
+        </div>
+      </div>
+
+      <!-- Modals -->
+      <div id="personal-info-modal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>Edit Personal Information</h2>
+            <span class="close" onclick="closeModal('personal-info-modal')"
+              >&times;</span
+            >
+          </div>
+          <input
+            type="text"
+            placeholder="Name"
+            value="John Doe"
+            id="edit-name"
+          />
+          <input
+            type="text"
+            placeholder="Branch"
+            value="Computer Science"
+            id="edit-branch"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value="john.doe@example.com"
+            id="edit-email"
+          />
+          <input
+            type="text"
+            placeholder="Year of Study"
+            value="3rd Year"
+            id="edit-year"
+          />
+          <button class="save-btn" onclick="savePersonalInfo()">Save</button>
+        </div>
+      </div>
+
+      <div id="add-achievement-modal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>Add Achievement</h2>
+            <span class="close" onclick="closeModal('add-achievement-modal')"
+              >&times;</span
+            >
+          </div>
+          <input
+            type="text"
+            placeholder="Achievement Title"
+            id="new-achievement-title"
+          />
+          <textarea
+            placeholder="Description"
+            id="new-achievement-description"
+          ></textarea>
+          <button class="save-btn" onclick="addItem('achievement')">
+            Save
+          </button>
+        </div>
+      </div>
+
+      <div id="edit-achievement-modal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>Edit Achievement</h2>
+            <span class="close" onclick="closeModal('edit-achievement-modal')"
+              >&times;</span
+            >
+          </div>
+          <input
+            type="text"
+            placeholder="Achievement Title"
+            id="edit-achievement-title"
+          />
+          <textarea
+            placeholder="Description"
+            id="edit-achievement-description"
+          ></textarea>
+          <button class="save-btn" onclick="saveEditedItem('achievement')">
+            Save
+          </button>
+        </div>
+      </div>
+
+      <div id="add-certification-modal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>Add Certification</h2>
+            <span class="close" onclick="closeModal('add-certification-modal')"
+              >&times;</span
+            >
+          </div>
+          <input
+            type="text"
+            placeholder="Certification Title"
+            id="new-certification-title"
+          />
+          <textarea
+            placeholder="Description"
+            id="new-certification-description"
+          ></textarea>
+          <button class="save-btn" onclick="addItem('certification')">
+            Save
+          </button>
+        </div>
+      </div>
+
+      <div id="edit-certification-modal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>Edit Certification</h2>
+            <span class="close" onclick="closeModal('edit-certification-modal')"
+              >&times;</span
+            >
+          </div>
+          <input
+            type="text"
+            placeholder="Certification Title"
+            id="edit-certification-title"
+          />
+          <textarea
+            placeholder="Description"
+            id="edit-certification-description"
+          ></textarea>
+          <button class="save-btn" onclick="saveEditedItem('certification')">
+            Save
+          </button>
+        </div>
+      </div>
+
+      <div id="add-project-modal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>Add Project</h2>
+            <span class="close" onclick="closeModal('add-project-modal')"
+              >&times;</span
+            >
+          </div>
+          <input
+            type="text"
+            placeholder="Project Title"
+            id="new-project-title"
+          />
+          <textarea
+            placeholder="Description"
+            id="new-project-description"
+          ></textarea>
+          <button class="save-btn" onclick="addItem('project')">Save</button>
+        </div>
+      </div>
+
+      <div id="edit-project-modal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>Edit Project</h2>
+            <span class="close" onclick="closeModal('edit-project-modal')"
+              >&times;</span
+            >
+          </div>
+          <input
+            type="text"
+            placeholder="Project Title"
+            id="edit-project-title"
+          />
+          <textarea
+            placeholder="Description"
+            id="edit-project-description"
+          ></textarea>
+          <button class="save-btn" onclick="saveEditedItem('project')">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let currentEditType = "";
+      let currentEditIndex = -1;
+
+      function openModal(modalId) {
+        document.getElementById(modalId).style.display = "flex";
+      }
+
+      function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+        resetModalFields(modalId);
+      }
+
+      function resetModalFields(modalId) {
+        const inputs = document.querySelectorAll(
+          `#${modalId} input, #${modalId} textarea`
+        );
+        inputs.forEach((input) => (input.value = ""));
+      }
+
+      function savePersonalInfo() {
+        const name = document.getElementById("edit-name").value;
+        const branch = document.getElementById("edit-branch").value;
+        const email = document.getElementById("edit-email").value;
+        const year = document.getElementById("edit-year").value;
+
+        // Save data (update the display for simplicity here)
+        document.querySelector(".personal-info h1").innerText = name;
+        document.querySelector(
+          ".personal-info p:nth-child(2)"
+        ).innerText = `Branch: ${branch}`;
+        document.querySelector(
+          ".personal-info p:nth-child(3)"
+        ).innerText = `Email: ${email}`;
+        document.querySelector(
+          ".personal-info p:nth-child(4)"
+        ).innerText = `Year of Study: ${year}`;
+
+        closeModal("personal-info-modal");
+      }
+
+      function openAddModal(modalId, type) {
+        currentEditType = type;
+        closeModal("edit-" + type + "-modal");
+        openModal(modalId);
+      }
+
+      function openEditModal(modalId, title, description, type) {
+        currentEditType = type;
+        currentEditIndex = Array.from(
+          document.querySelectorAll(`#${type}-list .card`)
+        ).findIndex((card) => card.querySelector("h3").innerText === title);
+
+        document.getElementById(`edit-${type}-title`).value = title;
+        document.getElementById(`edit-${type}-description`).value = description;
+        openModal(modalId);
+      }
+
+      function addItem(type) {
+        const title = document.getElementById(`new-${type}-title`).value;
+        const description = document.getElementById(
+          `new-${type}-description`
+        ).value;
+
+        if (title && description) {
+          const list = document.getElementById(`${type}-list`);
+          const newCard = document.createElement("div");
+          newCard.className = "card";
+          newCard.innerHTML = `
+          <h3>${title}</h3>
+          <p>${description}</p>
+          <button class="edit-card-btn" onclick="openEditModal('edit-${type}-modal', '${title}', '${description}', '${type}')">Edit</button>
+          <button class="delete-card-btn" onclick="deleteItem(this, '${type}')">Delete</button>
+        `;
+          list.appendChild(newCard);
+          closeModal("add-" + type + "-modal");
+        } else {
+          alert("Please fill in all fields.");
+        }
+      }
+
+      function saveEditedItem(type) {
+        const title = document.getElementById(`edit-${type}-title`).value;
+        const description = document.getElementById(
+          `edit-${type}-description`
+        ).value;
+
+        if (title && description && currentEditIndex !== -1) {
+          const cards = document.querySelectorAll(`#${type}-list .card`);
+          const card = cards[currentEditIndex];
+          card.querySelector("h3").innerText = title;
+          card.querySelector("p").innerText = description;
+          closeModal("edit-" + type + "-modal");
+        } else {
+          alert("Please fill in all fields.");
+        }
+      }
+
+      function deleteItem(button, type) {
+        const card = button.parentElement;
+        card.remove();
+      }
+    </script>
+  </body>
+</html>

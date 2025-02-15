@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Profiles</title>
+    <style>
+        body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f5f7fa;
+        background-image: url('../images/image6.jpg'); 
+        background-size: cover; 
+        background-position: center; 
+        background-repeat: no-repeat; 
+    }
+    nav {
+        background-color: #0F4C81; 
+        padding: 15px 30px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+    nav .logo {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    nav .menu {
+        display: flex;
+        gap: 20px;
+       
+    }
+
+    nav .menu a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        margin-right: 40px;
+    }
+
+    nav .menu a:hover {
+        text-decoration: underline;
+    }
+
+        .container {
+            margin-top: 80px;
+            padding: 20px;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h3 {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            padding: 8px 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #0F4C81; 
+            color: white;
+        }
+
+        .faculty-cards {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .faculty-card {
+            background-color: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+
+        .faculty-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+            border-color: #0F4C81; /* Updated to blue */
+        }
+
+        .faculty-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .faculty-card h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .faculty-card p {
+            color: #555;
+        }
+
+        .faculty-card button {
+            background-color: #0F4C81; 
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .faculty-card button:hover {
+            background-color: #073A63; 
+        }
+         /* Modal Styling */
+        .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+}
+
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.modal-content button {
+    background-color: #0F4C81; 
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.modal-content button:hover {
+    background-color: #073A63; 
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent; 
+    color: #0F4C81; 
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #073A63; 
+}
+
+           </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Vishnu Edu Connect</div>
+        <div class="menu">
+            <a href="student_inbox.html">Inbox</a>
+            <a href="student_profile.html">Profile</a>
+            <a href="Home.html">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="sidebar">
+            <h3>Filter by Expertise</h3>
+            <a href="#" data-domain="all">All</a>
+            <a href="#" data-domain="Artificial Intelligence">Artificial Intelligence</a>
+            <a href="#" data-domain="Machine Learning">Machine Learning</a>
+            <a href="#" data-domain="Cloud Computing">Cloud Computing</a>
+            <a href="#" data-domain="Data Science">Data Science</a>
+            <a href="#" data-domain="Data Analytics">Data Analytics</a>
+            <a href="#" data-domain="Cyber Security">Cyber Security</a>
+            <a href="#" data-domain="Embedded Systems">Embedded Systems</a>
+            <a href="#" data-domain="Additive Manufacturing">Additive Manufacturing</a>
+<a href="#" data-domain="Health Psychology">Health Psychology</a>
+<a href="#" data-domain="Digital Content Creation">Digital Content Creation</a>
+<a href="#" data-domain="Public Speaking and Presentation Skills">Public Speaking and Presentation Skills</a>
+
+        </div>
+
+        <div class="faculty-cards">
+<div class="faculty-card" data-expertise="Artificial Intelligence">
+    <img src="../images/default-profile.webp" alt="Dr. AI Expert">
+    <h3>Dr. AI Expert</h3>
+    <p><strong>Expertise:</strong> Artificial Intelligence</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Artificial Intelligence">
+    <img src="../images/default-profile.webp" alt="Prof. AI Innovator">
+    <h3>Prof. AI Innovator</h3>
+    <p><strong>Expertise:</strong> Artificial Intelligence</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Machine Learning">
+    <img src="../images/default-profile.webp" alt="Prof. ML Specialist">
+    <h3>Prof. ML Specialist</h3>
+    <p><strong>Expertise:</strong> Machine Learning</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Machine Learning, Data Science">
+    <img src="../images/default-profile.webp" alt="Dr. ML & Data Science Specialist">
+    <h3>Dr. ML & Data Science Specialist</h3>
+    <p><strong>Expertise:</strong> Machine Learning, Data Science</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Cyber Security">
+    <img src="../images/default-profile.webp" alt="Dr. Cyber Security Specialist">
+    <h3>Dr. Cyber Security Specialist</h3>
+    <p><strong>Expertise:</strong> Cyber Security</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Cyber Security, Cloud Computing">
+    <img src="../images/default-profile.webp" alt="Dr. Cyber Security & Cloud Expert">
+    <h3>Dr. Cyber Security & Cloud Expert</h3>
+    <p><strong>Expertise:</strong> Cyber Security, Cloud Computing</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Cloud Computing">
+    <img src="../images/default-profile.webp" alt="Dr. Cloud Expert">
+    <h3>Dr. Cloud Expert</h3>
+    <p><strong>Expertise:</strong> Cloud Computing</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Embedded Systems">
+    <img src="../images/default-profile.webp" alt="Prof. Embedded Systems Expert">
+    <h3>Prof. Embedded Systems Expert</h3>
+    <p><strong>Expertise:</strong> Embedded Systems</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Embedded Systems, Additive Manufacturing">
+    <img src="../images/default-profile.webp" alt="Dr. Embedded Systems & Additive Manufacturing Expert">
+    <h3>Dr. Embedded Systems & Additive Manufacturing Expert</h3>
+    <p><strong>Expertise:</strong> Embedded Systems, Additive Manufacturing</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Additive Manufacturing">
+    <img src="../images/default-profile.webp" alt="Prof. Additive Manufacturing Expert">
+    <h3>Prof. Additive Manufacturing Expert</h3>
+    <p><strong>Expertise:</strong> Additive Manufacturing</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Health Psychology">
+    <img src="../images/default-profile.webp" alt="Dr. Health Psychologist">
+    <h3>Dr. Health Psychologist</h3>
+    <p><strong>Expertise:</strong> Health Psychology</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Health Psychology, Digital Content Creation">
+    <img src="../images/default-profile.webp" alt="Prof. Health Psychology & Digital Content Creator">
+    <h3>Prof. Health Psychology & Digital Content Creator</h3>
+    <p><strong>Expertise:</strong> Health Psychology, Digital Content Creation</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Digital Content Creation">
+    <img src="../images/default-profile.webp" alt="Dr. Digital Content Creator">
+    <h3>Dr. Digital Content Creator</h3>
+    <p><strong>Expertise:</strong> Digital Content Creation</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Public Speaking and Presentation Skills">
+    <img src="../images/default-profile.webp" alt="Prof. Public Speaking Coach">
+    <h3>Prof. Public Speaking Coach</h3>
+    <p><strong>Expertise:</strong> Public Speaking and Presentation Skills</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Public Speaking and Presentation Skills, Additive Manufacturing">
+    <img src="../images/default-profile.webp" alt="Prof. Public Speaking & Additive Manufacturing Expert">
+    <h3>Prof. Public Speaking & Additive Manufacturing Expert</h3>
+    <p><strong>Expertise:</strong> Public Speaking and Presentation Skills, Additive Manufacturing</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Artificial Intelligence">
+    <img src="../images/default-profile.webp" alt="Dr. AI Expert">
+    <h3>Dr. AI Expert</h3>
+    <p><strong>Expertise:</strong> Artificial Intelligence</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Artificial Intelligence">
+    <img src="../images/default-profile.webp" alt="Prof. AI Innovator">
+    <h3>Prof. AI Innovator</h3>
+    <p><strong>Expertise:</strong> Artificial Intelligence</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Machine Learning">
+    <img src="../images/default-profile.webp" alt="Prof. ML Specialist">
+    <h3>Prof. ML Specialist</h3>
+    <p><strong>Expertise:</strong> Machine Learning</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Machine Learning, Data Science">
+    <img src="../images/default-profile.webp" alt="Dr. ML & Data Science Specialist">
+    <h3>Dr. ML & Data Science Specialist</h3>
+    <p><strong>Expertise:</strong> Machine Learning, Data Science</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Cyber Security">
+    <img src="../images/default-profile.webp" alt="Dr. Cyber Security Specialist">
+    <h3>Dr. Cyber Security Specialist</h3>
+    <p><strong>Expertise:</strong> Cyber Security</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Cyber Security, Cloud Computing">
+    <img src="../images/default-profile.webp" alt="Dr. Cyber Security & Cloud Expert">
+    <h3>Dr. Cyber Security & Cloud Expert</h3>
+    <p><strong>Expertise:</strong> Cyber Security, Cloud Computing</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Cloud Computing">
+    <img src="../images/default-profile.webp" alt="Dr. Cloud Expert">
+    <h3>Dr. Cloud Expert</h3>
+    <p><strong>Expertise:</strong> Cloud Computing</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+<div class="faculty-card" data-expertise="Artificial Intelligence, Public Speaking">
+    <img src="../images/default-profile.webp" alt="Prof. AI & Public Speaking Expert">
+    <h3>Prof. AI & Public Speaking Expert</h3>
+    <p><strong>Expertise:</strong> Artificial Intelligence, Public Speaking</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Cloud Computing, Soft Skills">
+    <img src="../images/default-profile.webp" alt="Dr. Cloud Computing & Soft Skills">
+    <h3>Dr. Cloud Computing & Soft Skills</h3>
+    <p><strong>Expertise:</strong> Cloud Computing, Soft Skills</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Data Science, Business Management">
+    <img src="../images/default-profile.webp" alt="Dr. Data Science & Business Management">
+    <h3>Dr. Data Science & Business Management</h3>
+    <p><strong>Expertise:</strong> Data Science, Business Management</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Health Psychology, Leadership Skills">
+    <img src="../images/default-profile.webp" alt="Prof. Health Psychology & Leadership Coach">
+    <h3>Prof. Health Psychology & Leadership Coach</h3>
+    <p><strong>Expertise:</strong> Health Psychology, Leadership Skills</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Additive Manufacturing, Digital Content Creation">
+    <img src="../images/default-profile.webp" alt="Prof. Additive Manufacturing & Digital Content">
+    <h3>Prof. Additive Manufacturing & Digital Content</h3>
+    <p><strong>Expertise:</strong> Additive Manufacturing, Digital Content Creation</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Cyber Security, Digital Content Creation">
+    <img src="../images/default-profile.webp" alt="Dr. Cyber Security & Content Creator">
+    <h3>Dr. Cyber Security & Content Creator</h3>
+    <p><strong>Expertise:</strong> Cyber Security, Digital Content Creation</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Embedded Systems, Project Management">
+    <img src="../images/default-profile.webp" alt="Prof. Embedded Systems & Project Manager">
+    <h3>Prof. Embedded Systems & Project Manager</h3>
+    <p><strong>Expertise:</strong> Embedded Systems, Project Management</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Artificial Intelligence, Organizational Psychology">
+    <img src="../images/default-profile.webp" alt="Dr. AI & Organizational Psychologist">
+    <h3>Dr. AI & Organizational Psychologist</h3>
+    <p><strong>Expertise:</strong> Artificial Intelligence, Organizational Psychology</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Data Science, Human Resource Management">
+    <img src="../images/default-profile.webp" alt="Prof. Data Science & HR Expert">
+    <h3>Prof. Data Science & HR Expert</h3>
+    <p><strong>Expertise:</strong> Data Science, Human Resource Management</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Cloud Computing, Public Speaking">
+    <img src="../images/default-profile.webp" alt="Dr. Cloud Computing & Public Speaking">
+    <h3>Dr. Cloud Computing & Public Speaking</h3>
+    <p><strong>Expertise:</strong> Cloud Computing, Public Speaking</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+
+<!-- Hardware + Psychology -->
+<div class="faculty-card" data-expertise="Embedded Systems, Health Psychology">
+    <img src="../images/default-profile.webp" alt="Dr. Embedded Systems & Psychology Expert">
+    <h3>Dr. Embedded Systems & Psychology Expert</h3>
+    <p><strong>Expertise:</strong> Embedded Systems, Health Psychology</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+
+<div class="faculty-card" data-expertise="Additive Manufacturing, Organizational Psychology">
+    <img src="../images/default-profile.webp" alt="Prof. Additive Manufacturing & Organizational Psychology">
+    <h3>Prof. Additive Manufacturing & Organizational Psychology</h3>
+    <p><strong>Expertise:</strong> Additive Manufacturing, Organizational Psychology</p>
+    <button class="send-request-btn">Send Request</button>
+    <button class="view-profile-btn">View Profile</button>
+</div>
+  <!-- Add additional cards here -->
+        </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <!-- Modal for Send Request -->
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <button class="close-btn" id="close-modal-btn">X</button>
+        <h3>Send Request</h3>
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter your name">
+        <label for="year">Year:</label>
+        <input type="text" id="year" placeholder="Enter your year">
+        
+        <!-- New Branch Field -->
+        <label for="branch">Branch:</label>
+        <input type="text" id="branch" placeholder="Enter your branch">
+
+        <label for="message">Why you want to connect:</label>
+        <textarea id="message" rows="4" placeholder="Enter your message"></textarea>
+        <button id="submit-request-btn">Submit Request</button>
+    </div>
+</div>
+   
+<script>
+    document.querySelectorAll('.sidebar a').forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            const domain = e.target.getAttribute('data-domain');
+            
+            document.querySelectorAll('.faculty-card').forEach(card => {
+                const expertise = card.getAttribute('data-expertise').split(',').map(expertise => expertise.trim());
+
+                if (domain === 'all' || expertise.includes(domain)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+  const sendRequestBtns = document.querySelectorAll('.send-request-btn');
+const modal = document.getElementById('modal');
+const closeModalBtn = document.getElementById('close-modal-btn');
+
+sendRequestBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        modal.style.display = 'flex';
+    });
+});
+
+closeModalBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
+
+window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+</script>
+
+    </body>
+</html>
